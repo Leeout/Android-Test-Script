@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-firstLaunch() {
+first_Launch() {
   echo "开始进行3次全新安装启动应用耗时测试"
   for i in {1..3}; do
     echo "-----第 $i 次首次启动测试-----"
-    uninsallApp
-    installApp
-    TotalTime[i]=$(adb shell am start -W "$PackageName"/"$ActivityName" | grep TotalTime | awk -F":" '{print $2}')
+    uninsall_app
+    install_app
+    TotalTime[i]=$(adb shell am start -W "$Package_name"/"$Activity_name" | grep TotalTime | awk -F":" '{print $2}')
     sleep 1s
     echo "首次安装启动耗时:${TotalTime[i]} ms"
   done
@@ -25,18 +25,18 @@ firstLaunch() {
   echo "安装启动均值:$avg ms"
 }
 
-installApp() {
-  echo "----重新安装被测APP $PackageName.apk ----"
+install_app() {
+  echo "----重新安装被测APP $Package_name.apk ----"
   apps_dir=$(pwd)/apk
-  adb install "$apps_dir"/"$PackageName".apk
+  adb install "$apps_dir"/"$Package_name".apk
 }
 
-uninsallApp() {
-  echo "-----开始卸载被测App $PackageName.apk-----"
-  adb uninstall "$PackageName"
+uninsall_app() {
+  echo "-----开始卸载被测App $Package_name.apk-----"
+  adb uninstall "$Package_name"
 }
 
-PackageName=com.vipkid.app
-ActivityName=.splash.SplashActivity
-firstLaunch
+Package_name=com.vipkid.app
+Activity_name=.splash.SplashActivity
+first_Launch
 echo "----测试结束----"
