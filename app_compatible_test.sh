@@ -1,5 +1,5 @@
 #--------------------------------------------
-#兼容性测试的详细过程：
+#（家长端）兼容性测试的详细过程：
 #1.屏幕解锁；
 #2.设备连接；
 #3.安装APK；
@@ -14,10 +14,15 @@
 #--------------------------------------------
 
 #apps_dir=$(pwd)/apk #被测app存放目录
-gt_performance_report=$(pwd)/app_log/gt_performance_report/$(date +%F%n%T)_gt_performance_report.log
+gt_report_dir=$(pwd)/report/gt_report
 device_id=$(adb get-serialno)
 Package_name=com.dadaabc.zhuozan.dadaabcstudent
 Activity_name=.default #启动页Activity
+
+if ! ${device_id};then
+  echo "测试设备未连接！"
+  exit 1
+fi
 
 #屏幕解锁
 adb shell am start -n io.appium.unlock/.Unlock
@@ -32,7 +37,7 @@ adb -s "${device_id}" shell am start -W -n ${Activity_name}
 #启动logcat
 ./get_app_running_log.sh
 
-#启动GT-有6个过程
+#启动GT-有以下6个过程
 adb -s "${device_id}" shell am start -W -n com.tencent.wstt.gt/.activity.GTMainActivity
 #运行被测应用
 adb -s "${device_id}" shell am broadcast -a com.tencent.wstt.gt.baseCommand.startTest --es pkgName ${Package_name}
@@ -50,13 +55,13 @@ brightness 100 --ez T true
 adb -s "${device_id}" shell monkey -p ${Package_name} --pct-touch 45 --pct-motion 20 --pct-trackball 5 --pct-nav 1 --pct-appswitch 20 --pct-flip 6 --throttle 50 -s 10 -v 3000
 
 #停止GT
-adb -s "${device_id}" shell am broadcast -a com.tencent.wstt.gt.baseCommand.endTest --es saveFolderName "${gt_performance_report}"
+adb -s "${device_id}" shell am broadcast -a com.tencent.wstt.gt.baseCommand.endTest --es saveFolderName report
 
 #停止logcat
 pid=$(adb shell ps | grep dadaabcstudent | head -n1 | grep -v grep | awk '{print $2}')
 kill -9 "${pid}"
 #拉取GT采集到的性能数据到PC
-adb -s "${device_id}" pull /sdcard/GT/GW/com.tencent.mobileqq/7.0.0/temp "${gt_performance_report}"
+adb -s "${device_id}" pull /sdcard/GT/GW/com.tencent.mobileqq/7.0.0/temp "${gt_report_dir}"
 
 #最后卸载APP
 ./get_app_start_time.sh::uninsall_app
