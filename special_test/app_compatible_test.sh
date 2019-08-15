@@ -14,7 +14,7 @@
 #--------------------------------------------
 
 #apps_dir=$(pwd)/apk #被测app存放目录
-gt_report_dir=$(pwd)/report/gt_report
+gt_report_dir=$(dirname "$PWD")/report/gt_report
 device_id=$(adb get-serialno)
 Package_name=com.dadaabc.zhuozan.dadaabcstudent
 Activity_name=.default #启动页Activity
