@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#实时捕获家长端APP运行日志
 get_running_log() {
   apps_dir=$(dirname "$PWD")/report/running_log
   pid=$(adb shell ps | grep dadaabcstudent | head -n1 | grep -v grep | awk '{print $2}')

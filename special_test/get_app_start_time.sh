@@ -5,7 +5,7 @@ first_Launch() {
     echo "-----第 $i 次首次启动测试-----"
     uninsall_app
     install_app
-    TotalTime[i]=$(adb shell am start -W "$Package_name"/"$Activity_name" | grep TotalTime | awk -F":" '{print $2}')
+    TotalTime[i]=$(adb shell am start -W "$package_name"/"$activity_name" | grep TotalTime | awk -F":" '{print $2}')
     sleep 1s
     echo "首次安装启动耗时:${TotalTime[i]} ms"
   done
@@ -26,17 +26,17 @@ first_Launch() {
 }
 
 install_app() {
-  echo "----重新安装被测APP $Package_name.apk ----"
+  echo "----重新安装被测APP $package_name.apk ----"
   apps_dir=$(pwd)/apk
-  adb install "$apps_dir"/"$Package_name".apk
+  adb install "$apps_dir"/"$package_name".apk
 }
 
 uninsall_app() {
-  echo "-----开始卸载被测App $Package_name.apk-----"
-  adb uninstall "$Package_name"
+  echo "-----开始卸载被测App $package_name.apk-----"
+  adb uninstall "$package_name"
 }
 
-Package_name=com.vipkid.app
-Activity_name=.splash.SplashActivity
+package_name=com.xiaoqiao.qclean
+activity_name=com.jifen.open.framework.ui.SplashActivity
 first_Launch
 echo "----测试结束----"
