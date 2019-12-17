@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-package_name=com.mobikeeper.sjgj
-activity_name=.gui.SplashScreenAcitivity
+package_name=com.qsmy.walkmonkey
+activity_name=com.qsmy.busniess.welcome.WelcomeActivity
 
 install_app() {
   echo "----重新安装被测APP $package_name.apk ----"
