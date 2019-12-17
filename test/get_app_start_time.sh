@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-package_name=com.hunting.matrix_callershow
-activity_name=com.cootek.smartdialer.v6.TPDTabActivity
+package_name=com.mobikeeper.sjgj
+activity_name=.gui.SplashScreenAcitivity
 
 install_app() {
   echo "----重新安装被测APP $package_name.apk ----"
