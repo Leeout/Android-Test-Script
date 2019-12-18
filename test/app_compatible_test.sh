@@ -13,12 +13,11 @@
 #10.停止logcat；
 #11.卸载APP；
 #--------------------------------------------
-
 #apps_dir=$(pwd)/apk #被测app存放目录
 gt_report_dir=$(dirname "$PWD")/report/gt_report
 device_id=$(adb get-serialno)
-Package_name=com.dadaabc.zhuozan.dadaabcstudent
-Activity_name=.default #启动页Activity
+Package_name=
+Activity_name=#启动页Activity
 
 if ! ${device_id};then
   echo "测试设备未连接！"

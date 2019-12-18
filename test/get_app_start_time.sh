@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-package_name=com.qsmy.walkmonkey
-activity_name=com.qsmy.busniess.welcome.WelcomeActivity
+package_name=com.xiaoqiao.qclean
+activity_name=com.jifen.open.framework.ui.SplashActivity
 
 install_app() {
   echo "----重新安装被测APP $package_name.apk ----"
