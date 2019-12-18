@@ -1,3 +1,5 @@
+#### APP包名汇总
+
 天天爱清理
 包名：com.xiaoqiao.qclean
 启动页：com.jifen.open.framework.ui.SplashActivity
@@ -12,6 +14,9 @@
 
 
 -----------------------------------------------
+
+
+竞品APP
 
 嗨来电
 包名：com.hunting.matrix_callershow
