@@ -13,7 +13,9 @@
 #10.停止logcat；
 #11.卸载APP；
 #--------------------------------------------
-#apps_dir=$(pwd)/apk #被测app存放目录
+source get_app_running_log.sh
+source get_app_start_time.sh
+
 gt_report_dir=$(dirname "$PWD")/report/gt_report
 device_id=$(adb get-serialno)
 Package_name=
@@ -28,14 +30,14 @@ fi
 adb shell am start -n io.appium.unlock/.Unlock
 
 #先卸载然后安装APP
-./get_app_start_time.sh::uninsall_app
-./get_app_start_time.sh::insall_app
+uninsall_app
+insall_app
 
 #启动APP
 adb -s "${device_id}" shell am start -W -n ${Activity_name}
 
 #启动logcat
-./get_app_running_log.sh
+get_running_log ${Package_name} 1
 
 #启动GT-有以下6个过程
 adb -s "${device_id}" shell am start -W -n com.tencent.wstt.gt/.activity.GTMainActivity
@@ -58,10 +60,11 @@ adb -s "${device_id}" shell monkey -p ${Package_name} --pct-touch 45 --pct-motio
 adb -s "${device_id}" shell am broadcast -a com.tencent.wstt.gt.baseCommand.endTest --es saveFolderName report
 
 #停止logcat
-pid=$(adb shell ps | grep dadaabcstudent | head -n1 | grep -v grep | awk '{print $2}')
+pid=$(adb shell ps | grep ${Package_name} | head -n1 | grep -v grep | awk '{print $2}')
 kill -9 "${pid}"
+
 #拉取GT采集到的性能数据到PC
 adb -s "${device_id}" pull /sdcard/GT/GW/com.tencent.mobileqq/7.0.0/temp "${gt_report_dir}"
 
 #最后卸载APP
-./get_app_start_time.sh::uninsall_app
+uninsall_app

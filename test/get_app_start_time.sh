@@ -52,6 +52,7 @@ cold_launch() {
   logger_debug "3次冷启动应用耗时测试结束"
 }
 
+# shellcheck disable=SC2028
 echo "-----选择要测试的启动方式：----- \n 【全新安装启动】-输入1 \n 【热启动】-输入2 \n 【冷启动】-输入3"
 read -r test_type
 case $test_type in
