@@ -10,8 +10,14 @@ install_app() {
 }
 
 uninsall_app() {
-  logger_debug "-----开始卸载被测App $package_name.apk-----"
-  adb uninstall "$package_name"
+  package_check=$(adb shell pm list packages | grep "$package_name")
+  if [[ -n ${package_check} ]]; then
+    logger_debug "-----开始卸载被测App $package_name.apk-----"
+    adb uninstall "$package_name"
+  else
+    logger_debug "当前没有安装该APP，可直接安装！"
+    return 0
+  fi
 }
 
 launch() {
