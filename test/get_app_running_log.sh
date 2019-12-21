@@ -2,12 +2,14 @@
 get_running_log() {
   apps_dir=$(dirname "$PWD")/report/running_log
   echo "日志存放路径:""${apps_dir}"
+  param=-v
+  log_level=_VERBOSE
   pid=$(adb shell ps | grep "$1" | head -n1 | grep -v grep | awk '{print $2}')
-  if [[ $2 -eq 1 ]]; then
-    adb logcat -v time | grep --color "${pid}" >"${apps_dir}"/"$(date +%F%n%T)"_"$1".log
-  else
-    adb logcat *:W time | grep --color "${pid}" >"${apps_dir}"/"$(date +%F%n%T)"_"$1".log
+  if [[ $2 -ne 1 ]]; then
+    param="*:W"
+    log_level=_WARN
   fi
+  adb logcat "${param}" time | grep --color "${pid}" >"${apps_dir}"/"$(date +%F%n%T)"_"$1""$log_level".log
 }
 
 # shellcheck disable=SC2028
