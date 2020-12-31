@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 source ../config/logger.sh
 
-package_name=com.zheyun.qhy
-activity_name=com.jifen.open.framework.launch.LauncherActivity
+package_name=
+activity_name=
 
 handle_password_window() {
   while true; do
