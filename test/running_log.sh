@@ -12,6 +12,7 @@ get_adb_log() {
   adb logcat "${param}" time | grep --color "${pid}" | tee -a "${apps_dir}"/"$(date +%F%n%T)"_"$1""$log_level".log
 }
 
+# shellcheck disable=SC2028
 echo "-----选择要捕获的日志等级：----- \n VERBOSE-输入1 \n WARN以上-输入2"
 read -r log_level
 
