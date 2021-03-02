@@ -1,8 +1,4 @@
-package_name=com.hupu.shihuo
-
-shoucang_activity=cn.shihuo.modulelib.views.activitys.CollectionGoodsActivity
-
-activity_list=("${shoucang_activity}")
+package_name=
 
 
 
